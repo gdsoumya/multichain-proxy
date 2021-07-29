@@ -22,7 +22,7 @@ jobs:
       - name: Extract Release Tag
         id: extract-realease-tag
         run: |
-            echo ::set-output name=release::$(echo renproject/multichain-proxy:${GITHUB_REF##*/})
+            echo ::set-output name=release::$(echo gdsoumya/multichain-proxy:${GITHUB_REF##*/})
 
       -
         name: Build and push
