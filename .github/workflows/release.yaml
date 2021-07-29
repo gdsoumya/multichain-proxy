@@ -18,13 +18,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Extract Release Tag
+        id: extract-realease-tag
+        run: |
+            echo ::set-output name=release::$(echo renproject/multichain-proxy:${GITHUB_REF##*/})
+
       -
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: gdsoumya/multichain-proxy:${{ GITHUB_REF##*/ }}
+          tags: ${{ steps.extract-realease-tag.outputs.release }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
